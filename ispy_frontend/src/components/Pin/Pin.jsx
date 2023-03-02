@@ -10,12 +10,12 @@ import { fetchUser } from '../../utils/fetchUser';
 
 const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
   const [postHovered, setPostHovered] = useState(false);
-
+  console.log(postedBy);
   const navigate = useNavigate();
 
   const user = fetchUser();
 
-  const alreadySaved = !!save?.filter((item) => item.postedBy._id == user?.sub)
+  const alreadySaved = !!save?.filter((item) => item.postedBy._id === user?.sub)
     ?.length;
 
   const savePin = (id) => {
@@ -122,6 +122,21 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
           </div>
         )}
       </div>
+      <Link
+        to={`user-profile/${postedBy._id}`}
+        className="flex gap-2 mt-2 items-center"
+      >
+        <img
+          className="w-8 h-8 rounded-full object-cover"
+          src={
+            postedBy.image
+              ? postedBy.image
+              : 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/800px-Image_created_with_a_mobile_phone.png'
+          }
+          alt={`${postedBy} profile`}
+        />
+        <p className="font-semibold capitalize">{postedBy?.userName}</p>
+      </Link>
     </div>
   );
 };
