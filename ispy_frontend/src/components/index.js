@@ -5,3 +5,6 @@ export { default as PinDetail } from './PinDetail/PinDetail.jsx';
 export { default as CreatePin } from './CreatePin/CreatePin.jsx';
 export { default as Feed } from './Feed/Feed.jsx';
 export { default as NavBar } from './NavBar/NavBar.jsx';
+export { default as Spinner } from './Spinner/Spinner.jsx';
+export { default as MasonryLayout } from './MasonryLayout/MasonryLayout.jsx';
+export { default as Pin } from './Pin/Pin.jsx';

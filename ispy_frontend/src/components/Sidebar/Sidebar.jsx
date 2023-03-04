@@ -74,7 +74,7 @@ const Sidebar = ({ user, closeToggle }) => {
             alt="user-profile"
             onClick={handleCloseSidebar}
           />
-          <p>{user.username}</p>
+          <p>{user.userName}</p>
         </Link>
       )}
     </div>
