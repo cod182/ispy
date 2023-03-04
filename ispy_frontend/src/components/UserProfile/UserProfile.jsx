@@ -14,6 +14,11 @@ import { MasonryLayout, Spinner } from '../index';
 const randomImg =
   'https://source.unsplash.com/1600x900/?nature,photography,technology';
 
+const activeBtnStyles =
+  'bg-red-500 text-white font-bold p-2 rounded-full w-20 outline-none';
+const notActiveBtnStyles =
+  'bg-primary mr-4 text-black font-bold p-2 rounded-full w-20 outline-none';
+
 const UserProfile = () => {
   const [user, setUser] = useState(false);
   const [pins, setPins] = useState(null);
@@ -30,6 +35,20 @@ const UserProfile = () => {
       setUser(data[0]);
     });
   }, [userId]);
+
+  useEffect(() => {
+    if (text === 'created') {
+      const createdPinsQuery = userCreatedPinsQuery(userId);
+      client.fetch(createdPinsQuery).then((data) => {
+        setPins(data);
+      });
+    } else {
+      const savedPins = userSavedPinsQuery(userId);
+      client.fetch(savedPins).then((data) => {
+        setPins(data);
+      });
+    }
+  }, [text, userId]);
 
   if (!user) {
     return <Spinner message="Loading profile" />;
@@ -59,7 +78,7 @@ const UserProfile = () => {
               {user.userName}
             </h1>
             <div className="absolute top-0 z-1 right-0 p-2">
-              {userId === user._id ? (
+              {userId === user._id && (
                 <button
                   className="bg-white p-2 rounded-full cursor-pointer outline-none shadow-md"
                   type="button"
@@ -70,10 +89,43 @@ const UserProfile = () => {
                 >
                   <AiOutlineLogout fontSize={21} color="red" />
                 </button>
-              ) : (
-                ''
               )}
             </div>
+          </div>
+          <div className="text-center mb-7">
+            <button
+              type="button"
+              onClick={(e) => {
+                setText('created');
+                setActiveBtn('created');
+              }}
+              className={`${
+                activeBtn === 'created' ? activeBtnStyles : notActiveBtnStyles
+              }`}
+            >
+              Created
+            </button>
+            <button
+              type="button"
+              onClick={(e) => {
+                setText('saved');
+                setActiveBtn('saved');
+              }}
+              className={`${
+                activeBtn === 'saved' ? activeBtnStyles : notActiveBtnStyles
+              }`}
+            >
+              Saved
+            </button>
+          </div>
+          <div className="px-2">
+            {pins?.length > 0 ? (
+              <MasonryLayout pins={pins} />
+            ) : (
+              <div className="flex justify-center font-bold items-center w-full text-xl mt-2">
+                No Pins Found
+              </div>
+            )}
           </div>
         </div>
       </div>
