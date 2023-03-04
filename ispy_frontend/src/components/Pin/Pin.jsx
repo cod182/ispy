@@ -25,8 +25,8 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
         .insert('after', 'save[-1]', [
           {
             _key: uuidv4(),
-            userId: user.sub,
-            postedBy: { _type: 'postedBy', _ref: user.sub },
+            userId: user?.sub,
+            postedBy: { _type: 'postedBy', _ref: user?.sub },
           },
         ])
         .commit()
@@ -105,7 +105,7 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
                     : destination}
                 </a>
               )}
-              {postedBy?._id === user.sub && (
+              {postedBy?._id === user?.sub && (
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
