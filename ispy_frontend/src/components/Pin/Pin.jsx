@@ -10,7 +10,6 @@ import { fetchUser } from '../../utils/fetchUser';
 
 const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
   const [postHovered, setPostHovered] = useState(false);
-  console.log(postedBy);
   const navigate = useNavigate();
 
   const user = fetchUser();
@@ -101,9 +100,9 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
                   className="bg-white flex items-center gap-2 text-black font-bold p-2 pl-4 pr-4 rounded-full opacity-70 hover:opacity-100 hover:shadow-md"
                 >
                   <BsFillArrowUpRightCircleFill />
-                  {destination.length > 20
-                    ? destination.slice(7, 20)
-                    : destination.slice(7)}
+                  {destination.length > 15
+                    ? `${destination.slice(0, 15)}...`
+                    : destination}
                 </a>
               )}
               {postedBy?._id === user.sub && (
