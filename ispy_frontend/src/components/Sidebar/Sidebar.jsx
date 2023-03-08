@@ -4,7 +4,7 @@ import { RiHomeFill } from 'react-icons/ri';
 import { IoIosArrowForward } from 'react-icons/io';
 
 import logo from '../../assets/logo.png';
-
+import { categories } from '../../utils/data';
 const Sidebar = ({ user, closeToggle }) => {
   const handleCloseSidebar = () => {
     if (closeToggle) closeToggle(false);
@@ -16,14 +16,6 @@ const Sidebar = ({ user, closeToggle }) => {
   const isActiveStyle =
     'flex items-center px-5 gap-3 font-bold border-r-2 border-black transition-all duration-200 ease-in-out capitalize';
 
-  const categories = [
-    { name: 'Animals' },
-    { name: 'Wallpapers' },
-    { name: 'Gaming' },
-    { name: 'Coding' },
-    { name: 'Photography' },
-    { name: 'Other' },
-  ];
   return (
     <div className="flex flex-col justify-between bg-white h-full overflow-y-scroll min-w-210 hide-scrollbar">
       <div className="flex flex-col">
@@ -57,6 +49,11 @@ const Sidebar = ({ user, closeToggle }) => {
               onClick={handleCloseSidebar}
               key={category.name}
             >
+              <img
+                className="w-8 h-8 rounded-full shadow-sm"
+                src={category.image}
+                alt={category.name}
+              />
               {category.name}
             </NavLink>
           ))}
